@@ -122,7 +122,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /login
+  * URL: /user
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -191,7 +191,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /newUser
+  * URL: /user/new
   * Headers:
     * Content-Type: application/json
   * Body:
