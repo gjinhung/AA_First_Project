@@ -696,7 +696,7 @@ Creates and returns a new venue for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: POST
-  * URL: /
+  * URL: /Groups/:groupId/Venues
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -770,8 +770,8 @@ Edit a new venue specified by its id
 * Require Authentication: Current User must be the organizer of the group or a member of
   the group with a status of "co-host"
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH/PUT
+  * URL: /Groups/:groupId/Venues/:venueId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -845,8 +845,8 @@ Returns all the events.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Events
   * Body: none
 
 * Successful Response
@@ -908,8 +908,8 @@ Returns all the events of a group specified by its id
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Group/:groupId/Events
   * Body: none
 
 * Successful Response
@@ -984,8 +984,8 @@ Returns the details of an event specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Events/:eventId
   * Body: none
 
 * Successful Response
@@ -1058,8 +1058,8 @@ Creates and returns a new event for a group specified by its id
 * Require Authorization: Current User must be the organizer of the group or a member of
   the group with a status of "co-host"
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /Groups/:groupId/Events
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1141,8 +1141,8 @@ Create and return a new image for an event specified by id.
 * Require Authentication: true
 * Require proper authorization: Current User must be an attendee of the event
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /Events/:eventId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1189,8 +1189,8 @@ Edit and returns an event specified by its id
 * Require Authorization: Current User must be the organizer of the group or a member of
   the group with a status of "co-host"
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH/PUT
+  * URL: /Events/:eventId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1286,8 +1286,8 @@ Delete an event specified by its id
 * Require Authorization: Current User must be the organizer of the group or a member of
   the group with a status of "co-host"
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /Events/:eventId
   * Body: none
 
 * Successful Response
@@ -1323,8 +1323,8 @@ Returns the members of a group specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Groups/:groupId/Members
   * Body: none
 
 * Successful Response: If you ARE the organizer or a co-host of the group. Shows
@@ -1414,8 +1414,8 @@ Request a new membership for a group specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /Groups/:groupId/Members
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -1486,8 +1486,8 @@ Change the status of a membership for a group specified by id.
   * To change the status from "member" to "co-host":
     * Current User must already be the organizer
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH/PUT
+  * URL: /Groups/:groupId/Members/:memberId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1580,8 +1580,8 @@ Delete a membership to a group specified by id.
 * Require proper authorization: Current User must be the host of the group, or
   the user whose membership is being deleted
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /Groups/:groupId/Members/:memberId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1654,8 +1654,8 @@ Returns the attendees of an event specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Events/:eventId/Attendees
   * Body: none
 
 * Successful Response: If you ARE the organizer of the group or a member of the
@@ -1748,8 +1748,8 @@ Request attendance for an event specified by id.
 * Require Authentication: true
 * Require Authorization: Current User must be a member of the group
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /Events/:eventId/Attendees
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -1816,8 +1816,8 @@ Change the status of an attendance for an event specified by id.
 * Require proper authorization: Current User must already be the organizer or
   have a membership to the group with the status of "co-host"
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH/PUT
+  * URL: /Events/:eventId/Attendees/:attendeeId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1891,8 +1891,8 @@ Delete an attendance to an event specified by id.
 * Require proper authorization: Current User must be the host of the group, or
   the user whose attendance is being deleted
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /Events/:eventId/Attendees/:attendeeId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1964,8 +1964,8 @@ Delete an existing image for a Group.
 * Require proper authorization: Current user must be the organizer or "co-host"
   of the Group
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /Groups/:groupId/:imageId
   * Body: none
 
 * Successful Response
@@ -2003,8 +2003,8 @@ Delete an existing image for an Event.
 * Require proper authorization: Current user must be the organizer or "co-host"
   of the Group that the Event belongs to
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /Events/:eventId
   * Body: none
 
 * Successful Response
@@ -2040,8 +2040,8 @@ Return events filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /Events?page=0&size=20
   * Query Parameters
     * page: integer, minimum: 0, maximum: 10, default: 0
     * size: integer, minimum: 0, maximum: 20, default: 20
