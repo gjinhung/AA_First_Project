@@ -1,4 +1,4 @@
-# `<SnorlaxNChill>`
+# `<Kanto>`
 
 ## Database Schema Design
 
@@ -11,22 +11,6 @@
 ### All endpoints that require authentication
 
 All endpoints that require a current user to be logged in.
-
-- AS A RENTER
-    - see listings
-    GET /listings
-    - see specific listings
-    GET /listings/:listingId
-    - see reviews
-    GET /listings/:listingId/reviews
-    - post reviews
-    POST /listings/:listingId
-
-
-- AS A LISTER
-    - post listing
-    POST /listings/new
-
 
 * Request: endpoints that require authentication
 * Error Response: Require authentication
@@ -47,19 +31,6 @@ All endpoints that require a current user to be logged in.
 All endpoints that require authentication and the current user does not have the
 correct role(s) or permission(s).
 
-- AS A RENTER
-    - update reviews
-    PUT  /listings/:listingId/reviews/:reviewId
-    - delete reviews
-    DELETE /listings/:listingId/reviews/:reviewId
-
-- AS A LISTER
-    - update listings
-    PUT /listings/:listingId
-    - delete listings
-    DELTE /listings/:listingId
-
-
 * Request: endpoints that require proper authorization
 * Error Response: Require proper authorization
   * Status Code: 403
@@ -74,14 +45,14 @@ correct role(s) or permission(s).
     }
     ```
 
-### Get the Current User
+### Get the Current Trainer
 
 Returns the information about the current user that is logged in.
 
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /user
+  * URL: /trainer/me
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -114,7 +85,7 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-### Log In a User
+### Log In a Trainer
 
 Logs in a current user with valid credentials and returns the current user's
 information.
@@ -122,7 +93,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /user
+  * URL: /trainer/login
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -183,7 +154,7 @@ information.
     }
     ```
 
-### Sign Up a User
+### Sign Up a Trainer
 
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
@@ -191,7 +162,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /user/new
+  * URL: /trainer
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -258,16 +229,16 @@ user's information.
     }
     ```
 
-## GROUPS
+## POKEMON
 
-### Get all Groups
+### Get all Pokemons
 
 Returns all the groups.
 
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /Groups
+  * URL: /pokemon
   * Body: none
 
 * Successful Response
@@ -297,14 +268,14 @@ Returns all the groups.
     }
     ```
 
-### Get all Groups joined or organized by the Current User
+### Get all the Pokemon of a certain Trainer
 
 Returns all the groups.
 
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /:currUserId/Groups
+  * URL: /trainers/:trainerId/pokemon
   * Body: none
 
 * Successful Response
@@ -334,14 +305,14 @@ Returns all the groups.
     }
     ```
 
-### Get details of a Group from an id
+### Get details of a Pokemon from an id
 
 Returns the details of a group specified by its id.
 
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /Groups/:groupId
+  * URL: /pokemon/:pokemonId
   * Body: none
 
 * Successful Response
@@ -407,14 +378,88 @@ Returns the details of a group specified by its id.
     }
     ```
 
-### Create a Group
+### Get Pokemon by Type
+
+Returns the details of a group specified by its id.
+
+* Require Authentication: false
+* Request
+  * Method: GET
+  * URL: /pokemon/:type
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "id": 1,
+      "organizerId": 1,
+      "name": "Evening Tennis on the Water",
+      "about": "Enjoy rounds of tennis with a tight-nit group of people on the water facing the Brooklyn Bridge. Singles or doubles.",
+      "type": "In person",
+      "private": true,
+      "city": "New York",
+      "state": "NY",
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
+      "numMembers": 10,
+      "GroupImages": [
+        {
+          "id": 1,
+          "url": "image url",
+          "preview": true
+        },
+        {
+          "id": 2,
+          "url": "image url",
+          "preview": false
+        }
+      ],
+      "Organizer": {
+        "id": 1,
+        "firstName": "John",
+        "lastName": "Smith"
+      },
+      "Venues": [
+        {
+          "id": 1,
+          "groupId": 1,
+          "address": "123 Disney Lane",
+          "city": "New York",
+          "state": "NY",
+          "lat": 37.7645358,
+          "lng": -122.4730327
+        }
+      ]
+    }
+    ```
+
+* Error response: Couldn't find a Group with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "There is no data. There is pokemon yet to be identified",
+      "statusCode": 404
+    }
+    ```
+
+
+### Create a Pokemon
 
 Creates and returns a new group.
 
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /Groups/New
+  * URL: /pokemon
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -472,7 +517,7 @@ Creates and returns a new group.
     }
     ```
 
-### Add an Image to a Group based on the Group's id
+### Add an Image to a Pokemon based on the pokemon's id
 
 Create and return a new image for a group specified by id.
 
@@ -480,7 +525,7 @@ Create and return a new image for a group specified by id.
 * Require proper authorization: Current User must be the organizer for the group
 * Request
   * Method: Post
-  * URL: /Groups/:groupId
+  * URL: /pokemon/:pokemonId/image
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -519,7 +564,7 @@ Create and return a new image for a group specified by id.
     }
     ```
 
-### Edit a Group
+### Edit a Pokemon
 
 Updates and returns an existing group.
 
@@ -527,7 +572,7 @@ Updates and returns an existing group.
 * Require proper authorization: Group must belong to the current user
 * Request
   * Method: PUT/PATCH
-  * URL: /Groups/:groupId
+  * URL: /pokemon/:pokemonId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -598,15 +643,15 @@ Updates and returns an existing group.
     }
     ```
 
-### Delete a Group
+### Delete a Pokemon
 
-Deletes an existing group.
+Deletes an existing pokemon.
 
 * Require Authentication: true
 * Require proper authorization: Group must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /Group/:groupId
+  * URL: /pokemon/:pokemonId
   * Body: none
 
 * Successful Response
@@ -635,9 +680,9 @@ Deletes an existing group.
     }
     ```
 
-## VENUES
+## TOWNS
 
-### Get All Venues for a Group specified by its id
+### Get All Towns 
 
 Returns all venues for a group specified by its id
 
@@ -646,7 +691,7 @@ Returns all venues for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: GET
-  * URL: /Groups/:groupId/Venues
+  * URL: /towns
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -687,7 +732,7 @@ Returns all venues for a group specified by its id
     }
     ```
 
-### Create a new Venue for a Group specified by its id
+### Create a new Town
 
 Creates and returns a new venue for a group specified by its id
 
@@ -696,7 +741,7 @@ Creates and returns a new venue for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: POST
-  * URL: /Groups/:groupId/Venues
+  * URL: /towns
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -762,7 +807,7 @@ Creates and returns a new venue for a group specified by its id
     }
     ```
 
-### Edit a Venue specified by its id
+### Edit a town specified by its id
 
 Edit a new venue specified by its id
 
@@ -770,8 +815,8 @@ Edit a new venue specified by its id
 * Require Authentication: Current User must be the organizer of the group or a member of
   the group with a status of "co-host"
 * Request
-  * Method: PATCH/PUT
-  * URL: /Groups/:groupId/Venues/:venueId
+  * Method: PATCH
+  * URL: /towns/:townId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -837,16 +882,16 @@ Edit a new venue specified by its id
     }
     ```
 
-## EVENTS
+## GYMS
 
-### Get all Events
+### Get all GYMS
 
 Returns all the events.
 
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /Events
+  * URL: /gyms
   * Body: none
 
 * Successful Response
@@ -902,7 +947,7 @@ Returns all the events.
     }
     ```
 
-### Get all Events of a Group specified by its id
+### Get all Badges of a Group specified by its id
 
 Returns all the events of a group specified by its id
 
