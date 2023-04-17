@@ -1,4 +1,4 @@
-# `<KantoMap>`
+# `<PokemomBnB>`
 
 ## Database Schema Design
 
@@ -50,7 +50,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users
+  * URL: /users/current
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -63,11 +63,10 @@ Returns the information about the current user that is logged in.
     {
       "user": {
         "id": 1,
-        "firstName": "Ash",
-        "lastName": "Ketchum",
-        "email": "ash.ketchum@gmail.com",
-        "username": "foreveryoung",
-        "trainer": true
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@gmail.com",
+        "username": "JohnSmith"
       } 
     }
     ```
@@ -99,8 +98,8 @@ information.
 
     ```json
     {
-      "credential": "ash.ketchum@gmail.com",
-      "password": "ilovepikachu"
+      "credential": "john.smith@gmail.com",
+      "password": "secret password"
     }
     ```
 
@@ -114,11 +113,10 @@ information.
     {
       "user": {
         "id": 1,
-        "firstName": "Ash",
-        "lastName": "Ketchum",
-        "email": "ash.ketchum@gmail.com",
-        "username": "foreveryoung",
-        "trainer": true
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@gmail.com",
+        "username": "JohnSmith"
       } 
     }
     ```
@@ -166,12 +164,11 @@ user's information.
 
     ```json
     {
-      "firstName": "Nurse",
-      "lastName": "Joy",
-      "email": "nurse.joy@pokemoncenter.com",
-      "username": "nursejoy1",
-      "password": "ilovechansey",
-      "trainer": false
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "john.smith@gmail.com",
+      "username": "JohnSmith",
+      "password": "secret password"
     }
     ```
 
@@ -185,11 +182,10 @@ user's information.
     {
       "user": {
         "id": 1,
-        "firstName": "Nurse",
-        "lastName": "Joy",
-        "email": "nurse.joy@pokemoncenter.com",
-        "username": "nursejoy1",
-        "trainer": false
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@gmail.com",
+        "username": "JohnSmith"
       }
     }
     ```
@@ -242,14 +238,13 @@ user's information.
     }
     ```
 
-
 ## SPOTS
 
 ### Get all Spots
 
-Returns all the Spots
+Returns all the spots.
 
-* Require Authentication: true
+* Require Authentication: false
 * Request
   * Method: GET
   * URL: /spots
@@ -263,18 +258,62 @@ Returns all the Spots
 
     ```json
     {
-      "Buildings": [
+      "Spots": [
         {
           "id": 1,
           "ownerId": 1,
-          "name": "Pokemon Center",
-          "manager": "Nurse Joy",
-          "location": "Celadon City",
-          "description": "Place where pokemon are healed",
+          "address": "123 Disney Lane",
+          "city": "San Francisco",
+          "state": "California",
+          "country": "United States of America",
+          "lat": 37.7645358,
+          "lng": -122.4730327,
+          "name": "App Academy",
+          "description": "Place where web developers are created",
+          "price": 123,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "avgRating": 4.5,
-          "price": 150,
+          "previewImage": "image url"
+        }
+      ]
+    }
+    ```
+
+### Get all Spots owned by the Current User
+
+Returns all the spots owned (created) by the current user.
+
+* Require Authentication: true
+* Request
+  * Method: GET
+  * URL: /spots/:spotid
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "Spots": [
+        {
+          "id": 1,
+          "ownerId": 1,
+          "address": "123 Disney Lane",
+          "city": "San Francisco",
+          "state": "California",
+          "country": "United States of America",
+          "lat": 37.7645358,
+          "lng": -122.4730327,
+          "name": "App Academy",
+          "description": "Place where web developers are created",
+          "price": 123,
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+          "avgRating": 4.5,
           "previewImage": "image url"
         }
       ]
@@ -287,8 +326,8 @@ Returns the details of a spot specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: GET
-  * URL: /spot/:spotId
+  * Method: ?
+  * URL: ?
   * Body: none
 
 * Successful Response
@@ -299,15 +338,20 @@ Returns the details of a spot specified by its id.
 
     ```json
     {
-     "id": 1,
+      "id": 1,
       "ownerId": 1,
-      "name": "Pokemon Center",
-      "description": "Place where pokemon are healed",
-      "location": "Celadon City",
+      "address": "123 Disney Lane",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "United States of America",
+      "lat": 37.7645358,
+      "lng": -122.4730327,
+      "name": "App Academy",
+      "description": "Place where web developers are created",
+      "price": 123,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36" ,
       "numReviews": 5,
-      "price": 150,
       "avgStarRating": 4.5,
       "SpotImages": [
         {
@@ -323,8 +367,8 @@ Returns the details of a spot specified by its id.
       ],
       "Owner": {
         "id": 1,
-        "firstName": "Nurse",
-        "lastName": "Joy"
+        "firstName": "John",
+        "lastName": "Smith"
       }
     }
     ```
@@ -355,10 +399,15 @@ Creates and returns a new spot.
 
     ```json
     {
-      "name": "Cerulean Gym",
-      "description": "The Cerulean Gym is the official Gym of Cerulean City",
-      "location": "Cerulean City",
-      "price": 150
+      "address": "123 Disney Lane",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "United States of America",
+      "lat": 37.7645358,
+      "lng": -122.4730327,
+      "name": "App Academy",
+      "description": "Place where web developers are created",
+      "price": 123
     }
     ```
 
@@ -372,10 +421,15 @@ Creates and returns a new spot.
     {
       "id": 1,
       "ownerId": 1,
-      "name": "Cerulean Gym",
-      "description": "The Cerulean Gym is the official Gym of Cerulean City",
-      "location": "Cerulean City",
-      "price": 150,
+      "address": "123 Disney Lane",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "United States of America",
+      "lat": 37.7645358,
+      "lng": -122.4730327,
+      "name": "App Academy",
+      "description": "Place where web developers are created",
+      "price": 123,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -391,9 +445,14 @@ Creates and returns a new spot.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
+        "address": "Street address is required",
+        "city": "City is required",
+        "state": "State is required",
+        "country": "Country is required",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "location": "location is required",
         "price": "Price per day is required"
       }
     }
@@ -406,8 +465,8 @@ Create and return a new image for a spot specified by id.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: PUT
-  * URL: /spots/:spotid
+  * Method: POST
+  * URL: /spots/:spotid/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -460,10 +519,15 @@ Updates and returns an existing spot.
 
     ```json
     {
-      "name": "Celadon Game Corner",
-      "description": "The playground for grown-ups!",
-      "location": "Celadon City",
-      "price": 150
+      "address": "123 Disney Lane",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "United States of America",
+      "lat": 37.7645358,
+      "lng": -122.4730327,
+      "name": "App Academy",
+      "description": "Place where web developers are created",
+      "price": 123
     }
     ```
 
@@ -477,10 +541,15 @@ Updates and returns an existing spot.
     {
       "id": 1,
       "ownerId": 1,
-     "name": "Celadon Game Corner",
-      "description": "The playground for grown-ups!",
-      "location": "Celadon City",
-      "price": 150,
+      "address": "123 Disney Lane",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "United States of America",
+      "lat": 37.7645358,
+      "lng": -122.4730327,
+      "name": "App Academy",
+      "description": "Place where web developers are created",
+      "price": 123,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
     }
@@ -496,9 +565,14 @@ Updates and returns an existing spot.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
+        "address": "Street address is required",
+        "city": "City is required",
+        "state": "State is required",
+        "country": "Country is required",
+        "lat": "Latitude is not valid",
+        "lng": "Longitude is not valid",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "location": "Location is required",
         "price": "Price per day is required"
       }
     }
@@ -560,7 +634,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/reviews
+  * URL: /reviews/current
   * Body: none
 
 * Successful Response
@@ -749,7 +823,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: /reviews/:reviewId
+  * URL: /reviews/:reviewid/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -806,7 +880,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: PUT
-  * URL: /user/reviews/:reviewid
+  * URL: /reviews/:reviewid
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -872,7 +946,7 @@ Delete an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /user/reviews/:reviewid
+  * URL: /reviews/:reviewid
   * Body: none
 
 * Successful Response
@@ -908,7 +982,7 @@ Return all the bookings that the current user has made.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/user
+  * URL: /bookings/current
   * Body: none
 
 * Successful Response
@@ -1021,7 +1095,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: bookings/spot/:spotid
+  * URL: /bookings/spots/:spotid
   * Body:
 
     ```json
@@ -1194,7 +1268,7 @@ Delete an existing booking.
   Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /bookings/:bookingid
+  * URL: /bookings/:bookid
   * Body: none
 
 * Successful Response
@@ -1312,10 +1386,14 @@ Return spots filtered by query parameters.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /spots?page=1&size=20
+  * URL: /spots
   * Query Parameters
     * page: integer, minimum: 1, maximum: 10, default: 1
     * size: integer, minimum: 1, maximum: 20, default: 20
+    * minLat: decimal, optional
+    * maxLat: decimal, optional
+    * minLng: decimal, optional
+    * maxLng: decimal, optional
     * minPrice: decimal, optional, minimum: 0
     * maxPrice: decimal, optional, minimum: 0
   * Body: none
@@ -1332,10 +1410,15 @@ Return spots filtered by query parameters.
         {
           "id": 1,
           "ownerId": 1,
-          "name": "Professor Oak's Lab",
-          "description": "Oak Pokémon Research Lab",
+          "address": "123 Disney Lane",
+          "city": "San Francisco",
+          "state": "California",
+          "country": "United States of America",
+          "lat": 37.7645358,
+          "lng": -122.4730327,
+          "name": "App Academy",
+          "description": "Place where web developers are created",
           "price": 123,
-          "location": "Pallet Town",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "avgRating": 4.5,
@@ -1359,6 +1442,10 @@ Return spots filtered by query parameters.
       "errors": {
         "page": "Page must be greater than or equal to 1",
         "size": "Size must be greater than or equal to 1",
+        "maxLat": "Maximum latitude is invalid",
+        "minLat": "Minimum latitude is invalid",
+        "minLng": "Maximum longitude is invalid",
+        "maxLng": "Minimum longitude is invalid",
         "minPrice": "Minimum price must be greater than or equal to 0",
         "maxPrice": "Maximum price must be greater than or equal to 0"
       }
