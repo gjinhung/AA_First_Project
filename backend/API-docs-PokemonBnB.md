@@ -50,7 +50,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/current
+  * URL: /session
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -185,7 +185,8 @@ user's information.
         "firstName": "John",
         "lastName": "Smith",
         "email": "john.smith@gmail.com",
-        "username": "JohnSmith"
+        "username": "JohnSmith",
+        "token": ""
       }
     }
     ```
@@ -1352,7 +1353,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /reviews/:reviewid/image
+  * URL: /reviews/:reviewid/:imageid
   * Body: none
 
 * Successful Response
