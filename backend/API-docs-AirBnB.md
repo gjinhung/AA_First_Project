@@ -1,8 +1,8 @@
-# `<PokemomBnB>`
+# `<POKEMON BNB>`
 
 ## Database Schema Design
 
-![img](Pokemon%20Kanto.png)
+`<insert database schema design here>`
 
 ## API Documentation
 
@@ -91,7 +91,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users/login
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -156,8 +156,8 @@ user's information.
 
 * Require Authentication: false
 * Request
-  * Method: POST
-  * URL: /users/new
+  * Method: post
+  * URL: /user
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -185,8 +185,7 @@ user's information.
         "firstName": "John",
         "lastName": "Smith",
         "email": "john.smith@gmail.com",
-        "username": "JohnSmith",
-        "token": ""
+        "username": "JohnSmith"
       }
     }
     ```
@@ -691,7 +690,7 @@ Returns all the reviews that belong to a spot specified by id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /spots/:spotid/reviews
+  * URL: /reviews/spots/:spotid
   * Body: none
 
 * Successful Response
@@ -746,7 +745,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /spots/:spotid/reviews
+  * URL: /reviews/spots/:spotid
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1174,7 +1173,7 @@ Update and return an existing booking.
 * Require Authentication: true
 * Require proper authorization: Booking must belong to the current user
 * Request
-  * Method: PATCH
+  * Method: PUT
   * URL: /bookings/:bookingid
   * Headers:
     * Content-Type: application/json
@@ -1268,8 +1267,8 @@ Delete an existing booking.
 * Require proper authorization: Booking must belong to the current user or the
   Spot must belong to the current user
 * Request
-  * Method: DELETE
-  * URL: /bookings/:bookid
+  * Method: Delete
+  * URL: /bookings/:bookingid
   * Body: none
 
 * Successful Response
@@ -1317,8 +1316,8 @@ Delete an existing image for a Spot.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: DELETE
-  * URL: /spots/:spotid/image
+  * Method: Delete
+  * URL: /spots/:spotid/images/:imageid
   * Body: none
 
 * Successful Response
@@ -1352,8 +1351,8 @@ Delete an existing image for a Review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: DELETE
-  * URL: /reviews/:reviewid/:imageid
+  * Method: Delete
+  * URL: /reviews/:reviewid/images/:imageid
   * Body: none
 
 * Successful Response
@@ -1380,14 +1379,14 @@ Delete an existing image for a Review.
     }
     ```
 
-## Add Query Filters to Get All Spots
+## Add Query Filters to Get All Spot/s
 
 Return spots filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: GET
-  * URL: /spots
+  * Method: Get
+  * URL: /
   * Query Parameters
     * page: integer, minimum: 1, maximum: 10, default: 1
     * size: integer, minimum: 1, maximum: 20, default: 20
