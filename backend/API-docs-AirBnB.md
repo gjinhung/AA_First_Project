@@ -1,3 +1,8 @@
+Render Link: 
+
+https://gar-auth-me.onrender.com
+
+
 # `<POKEMON BNB>`
 
 ## Database Schema Design
