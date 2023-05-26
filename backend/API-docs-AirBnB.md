@@ -162,7 +162,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: post
-  * URL: /user
+  * URL: /users
   * Headers:
     * Content-Type: application/json
   * Body:
