@@ -1357,7 +1357,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: Delete
-  * URL: /reviews/:reviewid/images/:imageid
+  * URL: /reviews/images/:imageid
   * Body: none
 
 * Successful Response
